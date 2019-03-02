@@ -8,7 +8,7 @@ Forensic, 150 points
 
 ## File 
 
-![](https://i.imgur.com/4qtqOyZ.png)
+![](QvR.png)
 
 ## Solution
 
@@ -18,7 +18,7 @@ The image gives strong QR code vibes, and the title of the task cannot lie. The 
 
 Our next idea was to simply to try and transform this image into black and white, and hope it reads as a valid QR code.
 
-Luckily enough, if we put away `#000000` and `#ffffff`, only 6 different colors are used in the image, which allows to bruteforce 64 possibilities of black and white images associated to it. Check [QVR_Code.py](QVR_Code.py) for the code.
+Luckily enough, if we put away `#000000` and `#ffffff`, only 6 different colors are used in the image, which allows to bruteforce 64 possibilities of black and white images associated to it. Check [QvR.py](QvR.py) for the code.
 
 After generating the 64 images, I estimated that figuring out a way to automatize the QR code decryption would take more time than doing it myself by hand (thanks zxing decoder).
 
@@ -26,11 +26,7 @@ It turns out that 3 of the 64 possibilities read as valid QR codes, which is act
 
 Here are the 3 valid images:
 
-
-
-
-![](https://i.imgur.com/dEDmq07.png) ![](https://i.imgur.com/WTx6BCU.png) ![](https://i.imgur.com/FIZ6rJJ.png)
-
+![](QvR_1.png) ![](QvR_2.png) ![](QvR_3.png)
 
 
 And their plaintext:
