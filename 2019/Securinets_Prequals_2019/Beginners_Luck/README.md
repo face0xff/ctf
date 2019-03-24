@@ -130,7 +130,7 @@ Let's check by sending a pretty basic injection first in `$_POST['val']` :
 ' OR '1'='1
 ```
 
-The site returns "True". It worked! Let's keep in mind that AND has a higher precedence than OR and try to run another injection :
+The site returns "True". It worked! Let's try to run another injection :
 
 ```
 ' OR (ip='our ip' AND length(token)=100) AND '1'='1
@@ -179,5 +179,5 @@ And we get our friend's token, for instance, `qx9tiuvxniog4qfkulftatkvysgiosw4qw
 
 Input it in flag.php and get the flag. Enjoy!
 
-Note: the exploit could have been much faster if we tested bits in the token instead of looping through a charset. Since there are 36 characters, which is approximately 5 bits, we could have been able to retrieve a character using only 5 requests instead of 36 worst case scenario. The payload would have been more complicated though, running some conversions and stuff.
+Note: the exploit could have been much faster if we tested bits in the token instead of looping through a charset. Since there are 36 characters, which is approximately 5 bits, we could have been able to retrieve a character using only 6 requests instead of 36 worst case scenario. The payload would have been more complicated though, running some conversions and stuff.
 
