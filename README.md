@@ -1,6 +1,6 @@
 # Introduction
 
-Here, you will be able to find a few writeups of mine for various CTF, often for the team [ViaRézo](https://ctftime.org/team/73594).
+Here, you will be able to find a few writeups of mine for various CTF.
 
 ### About me
 
