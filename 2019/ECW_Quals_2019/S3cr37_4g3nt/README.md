@@ -23,7 +23,7 @@ https://blog.3or.de/starting-embedded-reverse-engineering-freertos-libopencm3-on
 
 Une fois le binaire chargé et IDA configuré, on se retrouve face à un code assez court avec 6 fonctions (ici j'en avais déjà renommé quelques unes).
 
-![fonctions](functions.png)
+![fonctions](./functions.png)
 
 `sub_27C` semble être le "main" du programme, que IDA décompile :
 
