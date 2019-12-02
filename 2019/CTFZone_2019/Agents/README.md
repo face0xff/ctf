@@ -46,11 +46,11 @@ Indeed, if we assume the server really uses the RSA key we actually sent, we cou
 
 From now we can, for example, use our formula to change `65537` to `1____` (`_` being spaces) so that the resulting JSON is still valid and `e` is set to 1. The server will then send back to us `M = C**e mod n = C mod n = C`.
 
-![Message](agents_message.jpg)
+![Message](agent_message.jpg)
 
 Convert it to ASCII:
 
-![Flag](agents_flag.jpg)
+![Flag](agent_flag.jpg)
 
 Enjoy!
 
