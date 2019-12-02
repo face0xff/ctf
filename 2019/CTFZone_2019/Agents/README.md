@@ -44,7 +44,7 @@ Great, we are trusted. Now we have pretty much two possibilities:
 
 Indeed, if we assume the server really uses the RSA key we actually sent, we could change either `n` or `e` so that it becomes easier for us. Changing `n` is complicated because it requires knowing parts of it, which we don't. However, `e` has few digits, and we can even guess its value is 65537 since it's the most common value in RSA for the exponent.
 
-From now we can, for example, use our formula to change `65537` to `1____` (`_` being spaces) so that the resulting JSON is still valid and `e` is set to 1. The server will then send back to us `M = C**e mod n = C mod n = C`.
+From now we can, for example, use our formula to change `65537` to `1____` (`_` being spaces) so that the resulting JSON is still valid and `e` is set to 1. The server will then send back to us `C = M**e mod n = M mod n = M`.
 
 ![Message](agent_message.jpg)
 
