@@ -51,3 +51,47 @@ What was only left to do was to make an image out of it:
 which decodes as the flag : `X-MAS{Th@t's_4_w31rD_fUnCt10n!!!_8082838205}`.
 
 Enjoy!
+
+### Script
+
+```python
+import socket, itertools
+
+def display(S):
+    for j in range(31):
+        print(''.join(str(u) if u >= 0 else ' ' for u in S[j]))
+    print('\n')
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(('challs.xmas.htsp.ro', 13005))
+
+square = [[-1] * 31 for i in range(31)]
+
+d = s.recv(4096)
+
+while -1 in list(itertools.chain(*square)):
+    coords = d.split(b'\n')[-1].replace(b'f(', b'').replace(b')=', b'')
+    x, y = map(int, coords.decode('utf-8').split(', '))
+    s.send(b'0\n')
+    d = s.recv(4096)
+    square[y][x] = 1 if b'wrong' in d else 0
+    display(square)
+
+s.close()
+
+from PIL import Image
+
+BLOCK = 10
+img = Image.new('RGB', (31 * BLOCK, 31 * BLOCK))
+
+for y in range(31):
+    for x in range(31):
+        color = (0,) * 3 if square[y][x] else (255,) * 3
+        for i in range(BLOCK):
+            for j in range(BLOCK):
+                img.putpixel((x * BLOCK + i, y * BLOCK + j), color)
+
+img.save('out.png')
+
+```
+
