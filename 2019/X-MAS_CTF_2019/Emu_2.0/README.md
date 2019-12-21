@@ -12,7 +12,7 @@ Thankfully we have the documentation for it, so maybe we can use it to write an 
 Author: Milkdrop
 ```
 
-Files : [rom](rom), [documentation.pdf](documentation.pdf)
+Files : [rom](./rom), [documentation.pdf](./documentation.pdf)
 
 ### Solution
 
