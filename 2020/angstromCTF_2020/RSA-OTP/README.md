@@ -75,9 +75,9 @@ Okay, so we know we should play with binary lengths to try and get information a
 
 Let's move on directly to the main idea with a simple example.
 
-Let's choose an integer m, for instance $$m=43$$, and look at $2m = 86$ and $3m = 129$.
+Let's choose an integer m, for instance $$m=4$$, and look at $$2m = 86$$ and $$3m = 129$$.
 
-$2m$ has a length of 2 digits (in base 10), and $3m$ has a length of 3. From this, we can deduce $m \lt 50$ (otherwise $2m \geq 100$) and also that $m \geq 34$ (otherwise $3m \lt 100$).
+$$2m$$ has a length of 2 digits (in base 10), and $$3m$$ has a length of 3. From this, we can deduce $$m \lt 50$$ (otherwise $$2m \geq 100$$) and also that $$m \geq 34$$ (otherwise $$3m \lt 100$$).
 
 Therefore, looking at lengths of multiples of a number gives us a **bounding** of this number. The bounds can be increasingly accurate with bigger factors.
 
@@ -85,15 +85,15 @@ We can apply the same principle to the flag by looking at binary lengths.
 
 #### Running the attack
 
-Let $m$ be the plaintext flag and $c$ the encrypted flag (which we know about).
+Let $$m$$ be the plaintext flag and $$c$$ the encrypted flag (which we know about).
 
-Let's choose a factor $k$ and compute $k' = k^e\mod{n}$, which is the encrypted $k$. We can now compute $ck' \equiv m^e k^e \equiv {(mk)}^e \mod{n}$ and feed it to the oracle.
+Let's choose a factor $$k$$ and compute $$k' = k^e\mod{n}$$, which is the encrypted $$k$$. We can now compute $$ck' \equiv m^e k^e \equiv {(mk)}^e \mod{n}$$ and feed it to the oracle.
 
-What the oracle will answer is the length of $mk$... as long as $mk$ is not too big (it should not be bigger than $n$). Luckily, we know about the length of $m$ (559 bits) so we know that we can go up to around 465 bits for $k$.
+What the oracle will answer is the length of $$mk$$... as long as $$mk$$ is not too big (it should not be bigger than $$n$$). Luckily, we know about the length of $$m$$ (559 bits) so we know that we can go up to around 465 bits for $$k$$.
 
-Let $u$ be that length. We now know that $2^{u - 1} \leq km \leq 2^u-1$, which means $2^{u - 1}/k \leq m \leq (2^u-1)/k$.
+Let $$u$$ be that length. We now know that $$2^{u - 1} \leq km \leq 2^u-1$$, which means $$2^{u - 1}/k \leq m \leq (2^u-1)/k$$.
 
-Testing with some examples, we find out that the factors which give the best bounds are the ones around when $u$ changes value. So what we are going to do is a dichotomic search to find when $u$ changes value from 1023 bits to 1024 bits. $k = 2^{464}$ and $k = \frac{1}{2}(2^{464} + 2^{465})$ yield $u = 1023$ and $u = 1024$ respectively, so we can start with these as lower and upper bounds for a dichotomic search.
+Testing with some examples, we find out that the factors which give the best bounds are the ones around when $$u$$ changes value. So what we are going to do is a dichotomic search to find when $$u$$ changes value from 1023 bits to 1024 bits. $$k = 2^{464}$$ and $$k = \frac{1}{2}(2^{464} + 2^{465})$$ yield $$u = 1023$$ and $$u = 1024$$ respectively, so we can start with these as lower and upper bounds for a dichotomic search.
 
 All there remains to do now is to implement the attack. After a few minutes of launching it...
 
