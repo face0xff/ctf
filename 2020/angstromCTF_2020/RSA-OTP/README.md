@@ -75,7 +75,7 @@ Okay, so we know we should play with binary lengths to try and get information a
 
 Let's move on directly to the main idea with a simple example.
 
-Let's choose an integer m, for instance $$m=4$$, and look at $$2m = 86$$ and $$3m = 129$$.
+Let's choose an integer m, for instance $$m=43$$, and look at $$2m = 86$$ and $$3m = 129$$.
 
 $$2m$$ has a length of 2 digits (in base 10), and $$3m$$ has a length of 3. From this, we can deduce $$m \lt 50$$ (otherwise $$2m \geq 100$$) and also that $$m \geq 34$$ (otherwise $$3m \lt 100$$).
 
