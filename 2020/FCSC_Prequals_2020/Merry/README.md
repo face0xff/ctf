@@ -12,7 +12,7 @@ Note : La version de Python utilisée par le serveur est 3.5.3 (default, Sep 27 
 
 #### Solution
 
-Le challenge a pour tag *post-quantum* mais il ne faut pas se laisser impressionner, aucune connaissance en crytographie quantique n'est nécessaire pour résoudre ce challenge. Il faut juste savoir faire du calcul matriciel de base :smiley: 
+Le challenge a pour tag *post-quantum* mais il ne faut pas se laisser impressionner, aucune connaissance en crytographie quantique n'est nécessaire pour résoudre ce challenge. Il faut juste savoir faire du calcul matriciel de base 😃 
 
 Voici le code du serveur :
 
