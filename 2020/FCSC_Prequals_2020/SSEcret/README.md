@@ -351,13 +351,13 @@ Bien ! Il ne reste plus qu'à reformuler ça mathématiquement (le chall a le ta
 
 $$\langle \: a_i \: | \: x \: \rangle \equiv c_i \: \mod{2}$$
 
-où $x$ est l'inconnue (notre password), $(a_i)_{0 \leq i \lt 128}$ les constantes magiques et $(c_i)_{0 \leq i \lt 128}$ les bits de la valeur magique de comparaison finale. $x$ et $(a_i)$ sont des vecteurs 128 bits qui codent l'entier qu'ils représentent.
+où $$x$$ est l'inconnue (notre password), $$(a_i)_{0 \leq i \lt 128}$$ les constantes magiques et $$(c_i)_{0 \leq i \lt 128}$$ les bits de la valeur magique de comparaison finale. $$x$$ et $$(a_i)$$ sont des vecteurs 128 bits qui codent l'entier qu'ils représentent.
 
 On a 128 équations de ce genre, que l'on peut donc reformuler globalement ainsi :
 
 $$Ax \equiv C \: \mod{2}$$
 
-où $A$ est la matrice de bits dont les lignes sont les $a_i$, et $C$ le vecteur colonne des $c_i$.
+où $$A$$ est la matrice de bits dont les lignes sont les $$a_i$$, et $$C$$ le vecteur colonne des $$c_i$$.
 
 Cette équation se résout en trois lignes de Sage :
 
