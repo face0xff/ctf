@@ -120,7 +120,7 @@ if __name__ == "__main__":
             pass
 ```
 
-L'idée est que l'on peut demander autant de fois que l'on veut au serveur un "key exchange", qui est un oracle à réponse binaire. Le but du challenge est de déterminer deux paramètres privés $S_a$ et $E_a$.
+L'idée est que l'on peut demander autant de fois que l'on veut au serveur un "key exchange", qui est un oracle à réponse binaire. Le but du challenge est de déterminer deux paramètres privés $$S_a$$ et $$E_a$$.
 
 A l'initialisation, le serveur pose $q = 2^{11}$, $n = 280$, $n_{bar} = m_{bar} = 4$ et génère deux clés privées $S_a$ et $E_a$ à valeurs dans $\{-1,0,1\}$ (oui, 2 est exclu, le randint de numpy n'agit pas comme le randint vanilla... !!). $S_a$ et $E_a$ sont de dimensions $(n, n_{bar})$.
 
