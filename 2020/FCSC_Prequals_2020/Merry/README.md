@@ -122,45 +122,45 @@ if __name__ == "__main__":
 
 L'idée est que l'on peut demander autant de fois que l'on veut au serveur un "key exchange", qui est un oracle à réponse binaire. Le but du challenge est de déterminer deux paramètres privés $$S_a$$ et $$E_a$$.
 
-A l'initialisation, le serveur pose $q = 2^{11}$, $n = 280$, $n_{bar} = m_{bar} = 4$ et génère deux clés privées $S_a$ et $E_a$ à valeurs dans $\{-1,0,1\}$ (oui, 2 est exclu, le randint de numpy n'agit pas comme le randint vanilla... !!). $S_a$ et $E_a$ sont de dimensions $(n, n_{bar})$.
+A l'initialisation, le serveur pose $$q = 2^{11}$$, $$n = 280$$, $$n_{bar} = m_{bar} = 4$$ et génère deux clés privées $$S_a$$ et $$E_a$$ à valeurs dans $$\{-1,0,1\}$$ (oui, 2 est exclu, le randint de numpy n'agit pas comme le randint vanilla... !!). $$S_a$$ et $$E_a$$ sont de dimensions $$(n, n_{bar})$$.
 
-Enfin, $A$ et $B$ sont deux matrices publiques. $A$ est générée aléatoirement à valeurs dans $\{0, \:..., \: q\}$ et est de taille $(n, n)$ ; $B$ satisfait la relation suivante :
+Enfin, $$A$$ et $$B$$ sont deux matrices publiques. $$A$$ est générée aléatoirement à valeurs dans $$\{0, \:..., \: q\}$$ et est de taille $$(n, n)$$ ; $$B$$ satisfait la relation suivante :
 
 $$ B := (A S_a + E_a) \: \mod{q}$$
 
-Étudions maintenant *check_exchange*. Le serveur nous demande $U$, une matrice $(m_{bar}, n)$, $C$, une matrice $(m_{bar}, n_{bar})$, et $\text{key}_b$, une matrice aussi $(m_{bar}, n_{bar})$.
+Étudions maintenant *check_exchange*. Le serveur nous demande $$U$$, une matrice $$(m_{bar}, n)$$, $$C$$, une matrice $$(m_{bar}, n_{bar})$$, et $$\text{key}_b$$, une matrice aussi $$(m_{bar}, n_{bar})$$.
 
 Il vérifie alors si :
 
 $$ \text{decode}((C - U S_a) \mod{q}) = \text{key}_b $$
 
-*decode* est une fonction qui recentre les valeurs de la matrice autour de 0 (pour qu'elles passent entre $-q/2$ et $q/2$ environ) puis les divise par $q/4$ et les arrondit, ce qui donne une matrice à valeurs dans $\{-2, -1, 0, 1, 2\}$.
+*decode* est une fonction qui recentre les valeurs de la matrice autour de 0 (pour qu'elles passent entre $$-q/2$$ et $$q/2$$ environ) puis les divise par $$q/4$$ et les arrondit, ce qui donne une matrice à valeurs dans $$\{-2, -1, 0, 1, 2\}$$.
 
-Si l'on arrive à retrouver $S_a$, il sera aisé de calculer $E_a$. Alors comment choisir les paramètres pour faire fuiter de l'information sur $S_a$ ?
+Si l'on arrive à retrouver $$S_a$$, il sera aisé de calculer $$E_a$$. Alors comment choisir les paramètres pour faire fuiter de l'information sur $$S_a$$ ?
 
-Ma solution (il y a certainement plusieurs techniques) est de poser $C = 0$ et de choisir $U = \lambda E_{1, j}$, où $\lambda$ est un coefficient entier à paramétrer et $E_{i,j}$ sont les matrices de la base canonique (des zéros partout, sauf un 1 en $(i, j)$).
+Ma solution (il y a certainement plusieurs techniques) est de poser $$C = 0$$ et de choisir $$U = \lambda E_{1, j}$$, où $$\lambda$$ est un coefficient entier à paramétrer et $$E_{i,j}$$ sont les matrices de la base canonique (des zéros partout, sauf un 1 en $$(i, j)$$).
 
 Ainsi, on aura :
 
 $$C - U S_a = -U S_a = -\lambda E_{1, j} S_a = \begin{bmatrix} & -\lambda S_{a, j} & \\ & 0 & \\ & 0 & \\ & 0 & \end{bmatrix} \in \mathcal{M}_{4, 4}(\{ 0, \:..., \: q - 1\}) \: \mod{q}$$
 
-où $S_{a, j}$ est la *j*-ème ligne de $S_a$ (qui contient 4 valeurs entre -1 et 1).
+où $$S_{a, j}$$ est la *j*-ème ligne de $$S_a$$ (qui contient 4 valeurs entre -1 et 1).
 
-Les valeurs subissant dans *decode* la division par $q/4$, on voit l'importance du facteur $\lambda$. En effet, sans, les coefficients $0$ et $1$ de la matrice obtenue se feraient arrondir à 0 et on ne pourrait plus les distinguer.
+Les valeurs subissant dans *decode* la division par $$q/4$$, on voit l'importance du facteur $$\lambda$$. En effet, sans, les coefficients $$0$$ et $$$1$ de la matrice obtenue se feraient arrondir à 0 et on ne pourrait plus les distinguer.
 
-Je pose maintenant $\lambda = q/4 = 512$ qui donne des résultats intéressants. En effet, en raisonnant coefficient par coefficient dans la matrice, on a, en partant d'un coefficient de $S_{a,j}$ :
+Je pose maintenant $$\lambda = q/4 = 512$$ qui donne des résultats intéressants. En effet, en raisonnant coefficient par coefficient dans la matrice, on a, en partant d'un coefficient de $$S_{a,j}$$ :
 
-* $0$ reste $0$, est recentré en $0$ et est arrondi à $0$
-* $1$ devient $-512 \equiv 1536\:\mod{q}$, est recentré en $-512$ et est arrondi à $-1$
-* $-1$ devient $512$, est recentré en $512$ et est arrondi à $1$
+* $$0$$ reste $$0$$, est recentré en $$0$$ et est arrondi à $$0$$
+* $$1$$ devient $$-512 \equiv 1536\:\mod{q}$$, est recentré en $$-512$$ et est arrondi à $$-1$$
+* $$-1$$ devient $$512$$, est recentré en $$512$$ et est arrondi à $$1$$
 
-Il suffit donc de prendre l'opposé du résultat pour obtenir la valeur d'origine. Il ne reste plus qu'à challenger l'oracle en brute-forçant toutes les matrices $4 \times 4$ dont la première ligne est à valeurs dans $\{-1, 0, 1\}$ (donc $3^4 = 81$ requêtes dans le pire cas) jusqu'à ce qu'on nous réponde succès, ce qui nous permet d'identifier une ligne de $S_a$.
+Il suffit donc de prendre l'opposé du résultat pour obtenir la valeur d'origine. Il ne reste plus qu'à challenger l'oracle en brute-forçant toutes les matrices $$4 \times 4$$ dont la première ligne est à valeurs dans $$\{-1, 0, 1\}$$ (donc $$3^4 = 81$$ requêtes dans le pire cas) jusqu'à ce qu'on nous réponde succès, ce qui nous permet d'identifier une ligne de $$S_a$$.
 
-On répète cela $n = 280$ fois (soit $22680$ requêtes dans le pire cas) et on a réussi à déterminer $S_a$. Il ne reste plus qu'à utiliser :
+On répète cela $$n = 280$$ fois (soit $$22680$$ requêtes dans le pire cas) et on a réussi à déterminer $$S_a$$. Il ne reste plus qu'à utiliser :
 
 $$ E_a \equiv B - A S_a \: \mod{q} $$
 
-et à soumettre la réponse $(S_a, \:E_a)$ au serveur.
+et à soumettre la réponse $$(S_a, \:E_a)$$ au serveur.
 
 Voici l'exploit :
 
@@ -246,6 +246,6 @@ s.close()
 
 L'exploit est un peu long, il y a peut-être moyen de faire plus court en répartissant un peu plus l'information à travers les requêtes mais cette méthode est suffisante donc je n'ai pas cherché.
 
-La séquelle de cette épreuve, *Pippin*, se résolvait de façon exactement similaire, mais il fallait remarquer que $S_a$ avait sur chaque ligne exactement 2 "0", 1 "1" et 1 "-1", ce qui réduit les possibilités et permet de passer en dessous de 3000 requêtes.
+La séquelle de cette épreuve, *Pippin*, se résolvait de façon exactement similaire, mais il fallait remarquer que $$S_a$$ avait sur chaque ligne exactement 2 "0", 1 "1" et 1 "-1", ce qui réduit les possibilités et permet de passer en dessous de 3000 requêtes.
 
 Enjoy !
