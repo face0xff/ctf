@@ -146,7 +146,7 @@ $$C - U S_a = -U S_a = -\lambda E_{1, j} S_a = \begin{bmatrix} & -\lambda S_{a, 
 
 où $$S_{a, j}$$ est la *j*-ème ligne de $$S_a$$ (qui contient 4 valeurs entre -1 et 1).
 
-Les valeurs subissant dans *decode* la division par $$q/4$$, on voit l'importance du facteur $$\lambda$$. En effet, sans, les coefficients $$0$$ et $$$1$ de la matrice obtenue se feraient arrondir à 0 et on ne pourrait plus les distinguer.
+Les valeurs subissant dans *decode* la division par $$q/4$$, on voit l'importance du facteur $$\lambda$$. En effet, sans, les coefficients $$0$$ et $$1$$ de la matrice obtenue se feraient arrondir à 0 et on ne pourrait plus les distinguer.
 
 Je pose maintenant $$\lambda = q/4 = 512$$ qui donne des résultats intéressants. En effet, en raisonnant coefficient par coefficient dans la matrice, on a, en partant d'un coefficient de $$S_{a,j}$$ :
 
