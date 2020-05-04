@@ -301,8 +301,8 @@ text = [int(x, 16) for x in text.split(' ')]
 reg = [0] * 16
 
 if debug_mode or not disassembly_mode:
-  username = sys.argv[1].encode()
-  serial = sys.argv[2].encode()
+  username = input('Username: ').encode()
+  serial = input('Serial: ').encode()
 
   text += [0] * 0x400 # Heap
   
