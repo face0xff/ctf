@@ -72,7 +72,7 @@ undefined8 main(int argc,undefined8 *argv)
 
 La fonction *main* calcule la longueur de notre argument et appelle la fonction `FUN_00400860`. Je passe sur les détails parce que ce n'est pas la partie intéressante ; cette fonction décode notre entrée comme de la **base64**, renvoie son adresse et stocke sa taille en octets une fois décodée dans `local_18`.
 
-La fonction `FUN_00601050` est appelée avec l'adresse de notre mot de passe décodée et sa longueur.
+La fonction `FUN_00601050` est appelée avec l'adresse de notre mot de passe décodé et sa longueur.
 
 ```c
 void FUN_00601050(undefined auParm1 [16],undefined *puParm2,long lParm3)
