@@ -26,7 +26,7 @@ In the `com/example/ecw` directory lie two classes named `MainActivity.class` an
 
 `MainActivity` contains a few interesting methods:
 
-```java=
+```java
 public void onActivityResult(int var1, int var2, Intent var3) {
       super.onActivityResult(var1, var2, var3);
       if (var1 == 12 && var2 == 10) {
@@ -58,7 +58,7 @@ public void onActivityResult(int var1, int var2, Intent var3) {
 
 This seems to log the final flag for the third step, so we'll save this for later.
 
-```java=
+```java
 public void onCreate(Bundle var1) {
       super.onCreate(var1);
       this.setContentView(2131361821);
@@ -93,7 +93,7 @@ This seems to read files called `step_1.dex`, `step_2.dex` and `step_3.dex` from
 
 Let's take a look at `FinishActivity` now:
 
-```java=
+```java
 public final Object invoke() {
       Class var1 = this.b.getClass();
       String var2 = this.b.getSharedPreferences("flag", 0).getString("a", (String)null);
@@ -123,7 +123,7 @@ Definitely some interesting stuff going on here, we know for sure there's crypto
 
 In the `d/c/a/d/` folder, there is an interesting `b.class` file:
 
-```java=
+```java
 public Object invoke(Object var1) {
       Cursor var288 = (Cursor)var1;
       IntRef var2 = this.c;
@@ -309,7 +309,7 @@ All of this is quite approximative, but it doesn't matter; it's enough to make p
 
 The md5 reverses to "jean". I found an implementation of PBKDF2WithHmacSHA256 in Python, which I used to decrypt all the ciphertexts:
 
-```python=
+```python
 from hashlib import pbkdf2_hmac
 from Crypto.Cipher import AES
 from base64 import b64decode
@@ -364,7 +364,7 @@ Now let's decompile the newly decrypted .dex file!
 
 ![](https://i.imgur.com/HoJwXge.png)
 
-```java=
+```java
 public final Thread a(@NotNull Activity var1) {
       SharedPreferences var2 = var1.getSharedPreferences("save", 0);
       var1.getSharedPreferences("flag", 0).edit().putString("w", "k").apply();
@@ -385,7 +385,7 @@ Cool, we made it to step1. We can see some weird stuff going on with the `flag` 
 
 In `a/a/a/d.class`, we can see a few potential new ciphertexts:
 
-```java=
+```java
 public static final String a = "ZnoETjqJ0h3VUtdPQnzkWsqrDFtvsK4BQ+1NJGx38YHXq9QxUEmztU9CsN4vCTbI";
 public static final String b = "tvEf77LVcQcHX2FtkIoSBQ==";
 public static final String c = "TbQSB6aY7Ye++tVv84UPIA==";
@@ -397,7 +397,7 @@ public static final String g = "EIW2q6l3m0ZvO1G6+QgXDVqiFcGj5tDV9tEtCRHJ6ALV2bwY
 
 In `a/a/a/e/c.class`, there's a new interesting piece of code:
 
-```java=
+```java
 if (b.a.a()) {
    String var28 = var1.getSharedPreferences("flag", 0).getString("a", "");
    if (var28 == null) {
@@ -418,7 +418,7 @@ Iterator var31 = var30.iterator();
 
 Looks like it's the same crypto as before, but with a different key which is the string contained in the `a` field of `flag`. Luckily, we might know what this key is. Let's try it out:
 
-```python=
+```python
 C = """ZnoETjqJ0h3VUtdPQnzkWsqrDFtvsK4BQ+1NJGx38YHXq9QxUEmztU9CsN4vCTbI
 tvEf77LVcQcHX2FtkIoSBQ==
 TbQSB6aY7Ye++tVv84UPIA==
@@ -449,7 +449,7 @@ The first three ciphertexts translated to garbage with incorrect PKCS padding, b
 
 I instantly had the intuition to split them on "!" and sort the "k:b" pairs by the "k" value:
 
-```python=
+```python
 q = """45:*!3:s!42:b!43:j!31:1!7:d!44:M!28:9!0:p!5:o!18:_!24:5!50:O!19:i!38:V!49:b!34:b!4:w!23:y!1:a!41:%!16:p!14:t!6:r!13:s!12:_!8:_!15:e!47:R!35:Z!46:'!51:7!25:B!11:r!26:<!48:C!10:o!27:S!33:r!22:p!40:V!20:s!2:s!17:1!21::!32:W!29:a!37:.!39:t!30:T!36:U!9:f"""
 q = q.split('!')
 Q = [0] * 100
@@ -468,7 +468,7 @@ Result : `password_for_step1_is:py5B<S9aT1WrbZU.VtV%bjM*'RCbO7`
 
 Really cool, what if we try this password as a key for the remaining ciphertexts that we weren't able to decrypt earlier?
 
-```python=
+```python
 C = """ZnoETjqJ0h3VUtdPQnzkWsqrDFtvsK4BQ+1NJGx38YHXq9QxUEmztU9CsN4vCTbI
 tvEf77LVcQcHX2FtkIoSBQ==
 TbQSB6aY7Ye++tVv84UPIA==""".split('\n')
@@ -493,7 +493,7 @@ If we try to decrypt `step_2.dex` with the last key (`py5B<S9aT1WrbZU.VtV%bjM*'R
 
 The `a/a/a/d.class` file contains three new ciphertexts, we're used to it at that point.
 
-```java=
+```java
 public static final String a = "5sxJURBMWadPV+Qfj2g/WFVWcaLbXoUxyXeiIvpa4pu1SjSj0nqneJeN0tNkKbJx";
 public static final String b = "gkZ6pGuoDU6Lz5bc23Y/5ZfI9XPcJd/r1PRrsE1epqc=";
 public static final String c = "rbfA5lkSHq0eL4dmwH4gHg==";
@@ -501,7 +501,7 @@ public static final String c = "rbfA5lkSHq0eL4dmwH4gHg==";
 
 The `a/a/a/e.class` is the interesting part.
 
-```java=
+```java
 public final boolean a(@NotNull String var1) {
       boolean var2 = false;
       boolean var3 = var2;
@@ -700,7 +700,7 @@ if (f.a(var1, 4, 0, 2) * f.a(var1, 6, 0, 2) == 4840)
 
 I removed the "(Object)null" arguments which are probably useless decompilation artifacts. What does this `f.a` function do now? Let's take a look at the `f.class` file:
 
-```java=
+```java
 public static final int a(@NotNull String var0, int var1, int var2) {
   Character var3 = StringsKt.getOrNull(var0, var1);
   if (var3 != null) {
@@ -717,7 +717,7 @@ Not sure about the extra arguments, but what's highly likely is we are isolating
 
 I extracted the pyramid of if's in a text file, wrote a script to parse it and directly feed it into z3:
 
-```python=
+```python
 from z3 import *
 
 dump = open('dump.txt', 'r').read().split('\n')[::2]
@@ -768,7 +768,7 @@ Output:
 
 Wonderful, now let's say this is a key and try to decrypt the three given ciphertexts:
 
-```python=
+```python
 K = [118, 118, 62, 75, 98, 86, 99, 79, 106, 121, 98, 40, 114, 81, 66, 84]
 K = bytes(K[::-1])
 
@@ -800,7 +800,7 @@ Once again, the last key that we managed to retrieve is able to decrypt the next
 
 The most interesting method is inside `FinishImpl.class`:
 
-```java=
+```java
 private final void classifyDrawing() {
       DrawView var1 = this.drawView;
       Bitmap var7;
@@ -875,7 +875,7 @@ It is the concatenation of `password` and `pin`.
 
 Let's take a look at the pin first, since it happens to be constructed right before.
 
-```java=
+```java
 int var2 = this.digitClassifier.getNumber(var7);
 String var3 = "recognized: " + var2;
 System.out.println(var3);
@@ -895,7 +895,7 @@ this.index = var2;
 
 Our intuition (since we still have no clue whatsoever what the application looks like at this point, let's remember that :smiley:) is that there is a way to input hand-drawn digits, and a classifier is used to recognize them. The method `getNumber` returns the most probable digit that was last input, and the pin will be a concatenation of these digits... or at least, those who pass the `verifyNext` test. But what does `verifyNext` do?
 
-```java=
+```java
 public final boolean verifyNext(@NotNull Bitmap var1, int var2) {
   if (!this.isInitialized) {
      throw new IllegalStateException("TF Lite Interpreter is not initialized yet.".toString());
@@ -924,7 +924,7 @@ public final boolean verifyNext(@NotNull Bitmap var1, int var2) {
 
 This is starting to get spicy. Our digit is converted into a bitmap and fed to an *interpreter* of a certain index. We can see that `this.interpreters` is initialized here:
 
-```java=
+```java
 for(char var3 = (char)var2; var3 < 'm'; var3 = var8) {
     Interpreter var4 = new Interpreter(this.loadModelFile(var1, "mnist-" + var3 + ".tflite"), new Options());
     int[] var5 = var4.getInputTensor(0).shape();
@@ -970,7 +970,7 @@ We can also notice some of these files are the same, which means they are models
 
 The idea now is to download a test set of images and labels from the [MNIST handwritten digit database](http://yann.lecun.com/exdb/mnist/), and for each interpreter, see which letter matches the best. I am not very familiar with tensorflow, but all it takes is some copy/pasting and tweaks:
 
-```python=
+```python
 import argparse, time, sys
 import numpy as np
 from PIL import Image
@@ -1045,7 +1045,7 @@ All is left now is to find `password`. I spent a lot of time on this part becaus
 
 Either way, here's where `this.password` is generated:
 
-```java=
+```java
 SharedPreferences var2 = this.activity.getSharedPreferences("flag", 0);
 byte var3 = 97;
 
@@ -1067,7 +1067,7 @@ So now we need to retrace our own steps and find all the places where the `flag`
 
 The issue is, there are often edits in which the context is a bit hard to tell, and that thus might not be relevant. For instance, this class from step 2:
 
-```java=
+```java
 public final class b {
    public static final b a = new b();
 
@@ -1117,7 +1117,7 @@ A safe method to find the good key was therefore to list all the $n$ potential (
 
 Last thing I'll show you is the most important keys in `flag`, that are set in `step2/a/a/a/c$a.class` and `step1/a/a/a/c$b.class` (Smali only):
 
-```smali=
+```smali
 L2 {
     aload4
     ldc "Congrats, almost there" (java.lang.String)
@@ -1165,7 +1165,7 @@ Finally, we already know the `a` key was set to the string `LuKXSGlN5(%:Vk=alEbl
 
 Now it turns out concatening these three values is enough to work, and that the "letter" values in `flag` were only bait!
 
-```python=
+```python
 C = "fEd6buSL5HmuH0pTdCJG4ZVCCn/bMC8bun44MKlw6mz2UrtH9Zhz3gMax4X8eGq5"
 C = b64decode(C)
 
