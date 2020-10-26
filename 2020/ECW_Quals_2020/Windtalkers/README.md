@@ -28,7 +28,7 @@ Not all of this knowledge is useful for this challenge but I thought it'd be int
 
 A good initial idea is to fire up **Stegsolve**, visually check the bit planes, read header information and try some LSB extraction. File format analysis does not yield anything unusual.
 
-![1.png](1.png)
+![Red plane LSB](1.png)
 
 The image is quite naturally noisy so it's hard to tell if there's data hidden in the LSB. Maybe there's some in the first few or last lines, but generic data extraction does not yield anything really interesting either.
 
@@ -38,11 +38,11 @@ Indeed, if you think from the creator's perspective, they would probably have to
 
 Luckily, reverse search engines such as TinEye are able to find the same image with the exact same size, in a lossless format (PNG). Stegsolve has an **image combiner** feature that we can use:
 
-![2.png](2.png)
+![XOR between task image and original image](2.png)
 
 The result of XORing the two images is all black, which means they are extremely similar. Now, we're going to export this XOR, load it back up into Stegsolve and check out the lowest bit planes. We can see everything is fully black, except for the lowest **blue plane**:
 
-![3.png](3.png)
+![Blue plane LSB in the XOR](3.png)
 
 There are two rows of pixels at the top which contain differences!
 
@@ -107,9 +107,9 @@ So this is when I tried splitting the binary blob on "10000001", which resulted 
 
 Somehow this looks really good. Now let's say `0` is `.`, `1` is `-`, and let the magic unfold:
 
-![4.png](4.png)
+![Morse code decodes to... *drum rolls*](4.png)
 
 Okay, so encoding the flag in hex before encoding it in morse was a dick move because I spent a lot of time trying to encode `ECW{` in morse and compare it to the binary blob, hoping to see interesting correlations. But I have to admit encoding the flag in hex made it so that most of the hex digits are 0-9, which is what gave the binary blob this shape and these remarkable patterns that eventually helped me solve the challenge. Enjoy:
 
-![5.png](5.png)
+![Holy shit man](5.png)
 
