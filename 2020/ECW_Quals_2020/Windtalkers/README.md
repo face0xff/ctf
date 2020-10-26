@@ -6,9 +6,9 @@
 
 *We have recovered this image from the enemy, find out what is in it!*
 
-**Jellyfish.bmp**
+[Jellyfish.bmp](Jellyfish.bmp)
 
-![](https://i.imgur.com/PacVejA.jpg)
+![Jellyfish.bmp](Jellyfish.bmp)
 
 ### Solution
 
