@@ -18,7 +18,7 @@
 
 In order to decompile the APK, I used [Bytecode Viewer](https://github.com/Konloch/bytecode-viewer).
 
-![1.png](1.png)
+![antirdroid.apk tree](1.png)
 
 In the `assets/` directory, we can see a file `mnist.tflite` and 12 files `mnist-letter.tflite` with `letter` ranging from `a` to `l`.
 
@@ -362,7 +362,7 @@ Okay, so the first three plaintexts are not that interesting. Maybe the second o
 
 Now let's decompile the newly decrypted .dex file!
 
-![2.png](2.png)
+![step 1 tree](2.png)
 
 ```java
 public final Thread a(@NotNull Activity var1) {
@@ -796,7 +796,7 @@ b'run\r\r\r\r\r\r\r\r\r\r\r\r\r'
 
 Once again, the last key that we managed to retrieve is able to decrypt the next step, `step_3.dex`.
 
-![3.png](3.png)
+![step 3 tree](3.png)
 
 The most interesting method is inside `FinishImpl.class`:
 
