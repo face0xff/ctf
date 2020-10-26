@@ -893,7 +893,7 @@ var2 = this.index + 1;
 this.index = var2;
 ```
 
-Our intuition (since we still have no clue whatsoever what the application looks like at this point, let's remember that :smiley:) is that there is a way to input hand-drawn digits, and a classifier is used to recognize them. The method `getNumber` returns the most probable digit that was last input, and the pin will be a concatenation of these digits... or at least, those who pass the `verifyNext` test. But what does `verifyNext` do?
+Our intuition (since we still have no clue whatsoever what the application looks like at this point, let's remember that 😃) is that there is a way to input hand-drawn digits, and a classifier is used to recognize them. The method `getNumber` returns the most probable digit that was last input, and the pin will be a concatenation of these digits... or at least, those who pass the `verifyNext` test. But what does `verifyNext` do?
 
 ```java
 public final boolean verifyNext(@NotNull Bitmap var1, int var2) {
