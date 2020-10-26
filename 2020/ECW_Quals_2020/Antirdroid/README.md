@@ -1113,7 +1113,7 @@ public final class b {
 }
 ```
 
-A safe method to find the good key was therefore to list all the $n$ potential (key, value) pairs of `flag`, and bruteforce the $2^n$ possible keys.
+A safe method to find the good key was therefore to list all the $$n$$ potential (key, value) pairs of `flag`, and bruteforce the $$2^n$$ possible keys.
 
 Last thing I'll show you is the most important keys in `flag`, that are set in `step2/a/a/a/c$a.class` and `step1/a/a/a/c$b.class` (Smali only):
 
