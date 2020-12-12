@@ -87,7 +87,7 @@ Now we only have to deobfuscate the string (xor) and get the flag!
 `ctf{1b8fa7f33da67dfeb1d5f79850dcf13630b5563e98566bf7b76281d409d728c6}`
 
 
-## Spy Agency
+## spy agency (forensics)
 
 In this challenge, we were given a Windows memory dump that we could deal with using volatility.
 
@@ -164,7 +164,7 @@ The coordinates lead to a Pizza Hut in Romania. Flag is ctf{sha256(pizzahut)} !
 ![](spyagency2.png)
 
 
-## cross me
+## cross me (web)
 
 We were given a link to a web application, where can either login or sign up.
 
@@ -212,7 +212,7 @@ Good, we are able to retrieve the contents of the admin page, but... still no fl
 ...which contains the flag! `CTF{3B3E64A81963B5E3FAC7DE0CE63966F03559DAF4B61753AADBFBA76855DB5E5A}`
 
 
-## syntax check
+## syntax check (web)
 
 In this challenge, we were given a web application and we were told `The flag is in /var/www/html/flag`.
 
