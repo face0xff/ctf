@@ -31,7 +31,7 @@ Content-Security-Policy:
   img-src *
 ```
 
-This screams [CSP bypass via JSONP](https://book.hacktricks.xyz/pentesting-web/content-security-policy-csp-bypass#jsonp). Let's keep that in mind for in a little bit :wink: 
+This screams [CSP bypass via JSONP](https://book.hacktricks.xyz/pentesting-web/content-security-policy-csp-bypass#jsonp). Let's keep that in mind for in a little bit 😉 
 
 Onto the feedback form: the server sends us back a link, which we can use to see our feedback in action (`http://151.236.114.211:13666/help/read.html?id=4e62dcb09b7570d1dcfb31d36e2dca1e072e11824f1a8846f751460b04d8118d`).
 
