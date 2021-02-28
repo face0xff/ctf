@@ -4,11 +4,9 @@
 
 ## Description
 
-```
-Dear friend, I recently had a tragedy, I was advised to use the services of a company that gives a comforting gift for a review.
+*Dear friend, I recently had a tragedy, I was advised to use the services of a company that gives a comforting gift for a review.*
+*I left a review but did not receive a gift, can you figure it out?*
 
-I left a review but did not receive a gift, can you figure it out?
-```
 
 A fun web task with some classic elements as well as a few twists and tricks.
 
