@@ -12,6 +12,8 @@ A fun web task with some classic elements as well as a few twists and tricks.
 
 ## Solution
 
+### Triggering the XSS
+
 ![Main page](1.png)
 
 The site greets us with a form, where we need to specify a name and a description. There's also a Google captcha (that will prove to be *very* annoying) which seems solely here to justify the presence of a **script to Google's domain**:
@@ -104,6 +106,8 @@ For instance, https://accounts.google.com/o/oauth2/revoke?callback=alert(31337);
 ```
 
 ![The long-awaited alert popup](3.png)
+
+### Being the admin's puppeteer
 
 Now the fun begins. From now on, I will only show the callback scripts without the surrounding parts for readability.
 
@@ -255,6 +259,8 @@ Once solved, the `/api/admin/pz/check` route returns:
   "img": "/admin/img/175193053491407376ff47dc6e834673.png"
 }
 ```
+
+### A picturesque ending
 
 Could this image finally contain the flag? Evidently, we cannot fetch it directly ourselves because of 403, so we have to make the admin fetch it for us.
 
