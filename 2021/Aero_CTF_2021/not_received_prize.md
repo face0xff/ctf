@@ -250,7 +250,7 @@ We make the admin fetch `/api/admin/pz/ex` for us:
 }
 ```
 
-That's right, we have to make the admin solve a math operation. Of course, it changes every time, and the operator changes too (addition, substraction...). Nothing really technically relevant so I will skip this part.
+That's right, we have to make the admin solve a math operation. Of course, it changes every time, and the operator changes too (addition, substraction...). Nothing really technically relevant (except perhaps that you couldn't use `eval` because CSP doesn't like it) so I will skip this part. 
 
 Once solved, the `/api/admin/pz/check` route returns:
 
