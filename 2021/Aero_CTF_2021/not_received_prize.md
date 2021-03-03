@@ -281,7 +281,7 @@ IHDR...c...ï¿½.....Ü.wï¿½....sRGB.ï¿½ï¿½.ï¿½....gAMA..ï¿½ï¿
 
 It is completely broken, because of encoding reasons. All "special" bytes are replaced with garbage (such as \x89 -> \xef\xbf\xbd), and it is not reversible.
 
-The [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Sending_and_Receiving_Binary_Data) has stuff to stay about it; we should specify `xhr.responseType = "arraybuffer";` to receive an *array buffer*, which we can then process the right away, for instance to encode it into base64.
+The [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Sending_and_Receiving_Binary_Data) has stuff to say about it; we should specify `xhr.responseType = "arraybuffer";` to receive an *array buffer*, which we can then process the right away, for instance to encode it into base64.
 
 However, it does not work; we get an error saying `responseType` cannot be set for synchronous requests. Indeed:
 
