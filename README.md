@@ -1,5 +1,5 @@
 # Introduction
 
-Here, you will be able to find a few writeups of mine for various CTF.
+This repository includes my writeups for various CTF over the years.
 
-Please make sure you are viewing this on https://ctf.feisu.win/, otherwise occasional LaTeX formulas may not be rendered correctly.
+Some of these may contain occasional LaTeX formulas that are not rendered on Github, so please make sure you are viewing this on https://ctf.0xff.re/.
