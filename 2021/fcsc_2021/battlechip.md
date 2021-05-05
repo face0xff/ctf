@@ -374,7 +374,7 @@ With this in mind, it is fairly easy to **leak information about the secret key*
 
 Denote `P[k] = (0, ..., 0xFF, ..., 0)` \(10 bytes\) with `0xFF` at the k-th position.
 
-We are going to ask the trusted context to perform `P xor S`, where `S` is the secret key, by putting `P` at position `I` and calling `0000`. In particular, the operation `0xFF xor S[k]` will be performed and put in cache. We can then **bruteforce** `S[k]` by computing `i xor S[k]` for `i` in \[0, 255\] and **counting the number of cycles** each of these XOR operations lasted.
+We are going to ask the trusted context to perform `P xor S`, where `S` is the secret key, by putting `P` at position `I` and calling `0000`. In particular, the operation `0xFF xor S[k]` will be performed and put in cache. We can then **bruteforce** `S[k]` by computing `0xFF xor i` for `i` in \[0, 255\] and **counting the number of cycles** each of these XOR operations lasted.
 
 Of course, we should reset the cache with the `00E1` instruction at each iteration to avoid any problems. This allows us to recover the secret key in 2560 encryptions worst case, but it will run pretty fast anyways since everything is run server-side \(we'll just send our ROM exploit once\).
 
