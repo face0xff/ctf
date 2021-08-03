@@ -42,4 +42,6 @@
   * [FCSC 2021](2021/fcsc_2021/README.md)
     * [Shared Notes \(web, 500\)](2021/fcsc_2021/shared_notes.md)
     * [BattleChip \(misc, 495\)](2021/fcsc_2021/battlechip.md)
+  * [UIUCTF 2021](2021/uiuctf_2021/README.md)
+    * [phpfuck_fixed](2021/uiuctf_2021/phpfuck.md)
 
