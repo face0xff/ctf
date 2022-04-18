@@ -310,15 +310,15 @@ end round;
 
 In order to perform calculations, the input data vector is converted (`slv2cubix`) to another representation, called **cubix**, and converted back to normal at the end (`cubix2slv`).
 
-A **cubix** is composed of four $4 \times 4$ matrices which coefficients are **9-bit** integers, which I will call *nonets*. Indeed, even though the data vectors are 72 bytes long, 576 bits is divisible by 9, which gives **64 nonets**. These nonets are split in 4 groups of 16 nonets, each group populating a square matrix.
+A **cubix** is composed of four $$4 \times 4$$ matrices which coefficients are **9-bit** integers, which I will call *nonets*. Indeed, even though the data vectors are 72 bytes long, 576 bits is divisible by 9, which gives **64 nonets**. These nonets are split in 4 groups of 16 nonets, each group populating a square matrix.
 
-Denoting $(m_0, \ldots, m_{63})$ the input nonets, the cubix is therefore:
+Denoting $$(m_0, \ldots, m_{63})$$ the input nonets, the cubix is therefore:
 
 $$ \begin{bmatrix}d_{63} & d_{62} & d_{61} & d_{60} \\ d_{59} & d_{58} & d_{57} & d_{56} \\ d_{55} & d_{54} & d_{53} & d_{52} \\ d_{51} & d_{50} & d_{49} & d_{48}\end{bmatrix} \: \ldots \: \begin{bmatrix} d_{15} & d_{14} & d_{13} & d_{12} \\ d_{11} & d_{10} & d_{9} & d_{8} \\ d_{7} & d_{6} & d_{5} & d_{4} \\ d_{3} & d_{2} & d_{1} & d_{0} \end{bmatrix} $$
 
 Then, the actual encryption part is carried through three different steps.
 
-**Mix cubix.** This step uses four constant matrices $m_0, m_1, m_2, m_3$, defined as follows.
+**Mix cubix.** This step uses four constant matrices $$m_0, m_1, m_2, m_3$$, defined as follows.
 
 $$ \begin{bmatrix} 3 & 0 & 2 & 6 \\ 6 & 3 & 0 & 2 \\ 2 & 6 & 3 & 0 \\ 0 & 2 & 6 & 3 \end{bmatrix}, \begin{bmatrix} 6 & 4 & 3 & 0 \\ 0 & 6 & 4 & 3 \\ 3 & 0 & 6 & 4 \\ 4 & 3 & 0 & 6 \end{bmatrix}, \begin{bmatrix} 4 & 0 & 9 & 3 \\ 3 & 4 & 0 & 9 \\ 9 & 3 & 4 & 0 \\ 0 & 9 & 3 & 4 \end{bmatrix}, \begin{bmatrix} 2 & 4 & 0 & 9 \\ 9 & 2 & 4 & 0 \\ 0 & 9 & 2 & 4 \\ 4 & 0 & 9 & 2 \end{bmatrix} $$
 
@@ -333,11 +333,11 @@ begin
 end mixcubix;
 ```
 
-Each matrix in the cubix is mixed using 4 matrices. More especially, if $(C_0, C_1, C_2, C_3)$ is the cubix:
+Each matrix in the cubix is mixed using 4 matrices. More especially, if $$(C_0, C_1, C_2, C_3)$$ is the cubix:
 
 $$ C_0 = \text{mixmatrix}(C_0, (m_0, m_1, m_2, m_3)) \\ C_1 = \text{mixmatrix}(C_1, (m_1, m_2, m_3, m_0)) \\ C_2 = \text{mixmatrix}(C_2, (m_2, m_3, m_0, m_1)) \\ C_3 = \text{mixmatrix}(C_3, (m_3, m_0, m_1, m_2)) $$
 
-As for the `mixmatrix` function, it basically multiplies each row of the input matrix with the $m_i$ matrices:
+As for the `mixmatrix` function, it basically multiplies each row of the input matrix with the $$m_i$$ matrices:
 
 $$ \text{mixmatrix}(C, (m_0, m_1, m_2, m_3)) = \begin{bmatrix} C^{(0)} m_0 \\ C^{(1)} m_1 \\ C^{(2)} m_2 \\ C^{(3)} m_3 \end{bmatrix} $$
 
@@ -393,7 +393,7 @@ If the *add* operation is merely a XOR, the *double* operation is more intricate
 -- Primitive polynomial = D^9+D^4+1  -- GF(512)
 ```
 
-Operations are actually carried out in a [Galois Field](https://en.wikipedia.org/wiki/Finite_field), $\text{GF}(512)$, with the primitive polynomial $D^9 + D^4 + 1$. Roughly, this means a nonet can be seen as a polynomial modulo $D^9 + D^4 + 1$ (so max degree 8), whose coefficients are in $\mathbb{Z}/2\mathbb{Z}$ (so each coefficient is a bit of the nonet).
+Operations are actually carried out in a [Galois Field](https://en.wikipedia.org/wiki/Finite_field), $$\text{GF}(512)$$, with the primitive polynomial $$D^9 + D^4 + 1$$. Roughly, this means a nonet can be seen as a polynomial modulo $$D^9 + D^4 + 1$$ (so max degree 8), whose coefficients are in $$\mathbb{Z}/2\mathbb{Z}$$ (so each coefficient is a bit of the nonet).
 
 Matrices can be defined over this space since it is a field, and thus operations such as addition, multiplication, inverse... exist as well.
 
@@ -559,7 +559,7 @@ This allowed to have a working implementation of the encryption algorithm.
 
 The only thing that remained was to implement decryption. This should not be too hard — we only need to generate the round keys and follow the reverse steps for the rounds.
 
-The **swap rows** and **round cubix** steps are trivial to invert (inverse permutation, and XOR the round key). As for the **mix cubix** step, its inverse it is actually the same operation, but with the **inverse matrices** for $m_i$ (which is also trivial to do thanks to Sage).
+The **swap rows** and **round cubix** steps are trivial to invert (inverse permutation, and XOR the round key). As for the **mix cubix** step, its inverse it is actually the same operation, but with the **inverse matrices** for $$m_i$$ (which is also trivial to do thanks to Sage).
 
 ### Solution script
 
