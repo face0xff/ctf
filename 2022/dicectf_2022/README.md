@@ -1,4 +1,4 @@
-# DiceCTF 2021
+# DiceCTF 2022
 
 February 4 - February 6
 
