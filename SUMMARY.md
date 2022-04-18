@@ -2,6 +2,8 @@
 
 * [Introduction](README.md)
 * [2022](2022/README.md)
+  * [Hackday Qualifications 2022](2022/hackday_2022/README.md)
+    * [Cubik'cipher](2022/hackday_2022/cubik_cipher.md)
   * [DiceCTF 2022](2022/dicectf_2022/README.md)
     * [cable management](2022/dicectf_2022/cable_management.md)
 * [2021](2021/README.md)
