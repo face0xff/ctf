@@ -548,7 +548,7 @@ I ran the simulation with `ghdl -r testbench --vcd=out.vcd --stop-time=50ns`. Th
 
 ![First, the key and the plaintext are loaded. The first round key is the 576 least significant bits of the key.](gtkwave0.png)
 
-![Next, the first round has been performed, and the next round key has been computed.](gtkwave0.png)
+![Next, the first round has been performed, and the next round key has been computed.](gtkwave1.png)
 
 Thanks to this, I was able to determine that there were indeed 9 rounds and that the key started to be randomized *after* the first round. I could also debug my script step by step and compare my values to the signals, to locate where I made mistakes.
 
