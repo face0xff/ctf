@@ -465,7 +465,7 @@ But obviously, it didn't work at first try. As I presented it here, the algorith
   * Uncertainty about indices
   * Is the key randomization function applied before or after the round function?
   * Did I understand the key randomization function properly? (especially with the fact that in VHDL, signals are updated at the end of a process)
-  * Do the `times` and `times2` even do what I think they do?
+  * Do the `times` and `times2` functions even do what I think they do?
   * Is my mathematical interpretation correct?
   * Is my translation to Sage correct?
   * ...
