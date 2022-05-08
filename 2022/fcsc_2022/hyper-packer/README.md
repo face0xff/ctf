@@ -212,7 +212,7 @@ while (Increment(key)) {
 }
 ```
 
-We understand now why the executable never really manages to finish unpacking itself: this loop is extremely unefficient. It comes down to brute-forcing to $2^{128}$ keys worst-case scenario until finding one that satisifes the mask. 
+We understand now why the executable never really manages to finish unpacking itself: this loop is extremely unefficient. It comes down to brute-forcing up to $$2^{128}$$ keys worst-case scenario until finding one that satisifes the mask. 
 
 It is much easier to brute-force all the possible subsets of bit indexes given by the mask, since the mask only contains a few one bits.
 
