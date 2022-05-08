@@ -216,7 +216,7 @@ We understand now why the executable never really manages to finish unpacking it
 
 It is much easier to brute-force all the possible subsets of bit indexes given by the mask, since the mask only contains a few one bits.
 
-Finally, let's reverse at the `DecryptData` function. 
+Finally, let's reverse the `DecryptData` function. 
 
 ```c
 __int64 __fastcall DecryptData(__int64 data, _BYTE *outbuf, __int64 key, __int64 n_blocks) {
