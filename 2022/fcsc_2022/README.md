@@ -11,3 +11,4 @@ I wrote two write-ups which were required for the qualification, on the followin
 
 ![Final global scoreboard matrix](./ranking.png)
 
+![Solved challenges overview](./challenges.png)
