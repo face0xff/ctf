@@ -2,6 +2,9 @@
 
 * [Introduction](README.md)
 * [2022](2022/README.md)
+  * [FCSC 2022](2022/fcsc_2022/README.md)
+    * [httpd (pwn)](2022/fcsc_2022/httpd/README.md)
+    * [Hyper Packer (reverse)](2022/fcsc_2022/hyper-packer/README.md)
   * [Hackday Qualifications 2022](2022/hackday_2022/README.md)
     * [Cubik'cipher](2022/hackday_2022/cubik_cipher.md)
   * [DiceCTF 2022](2022/dicectf_2022/README.md)
