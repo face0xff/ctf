@@ -197,6 +197,7 @@ b'FCSC{1d43cd910e5775b80ca7a2c3935fc5c76b207d2bb44a596b474521d776b8e412}'
 
 ![](2.jpg)
 
+PS: I am deeply sorry to that person I kicked out of the top 3 crypto senior ranking by solving this challenge, who had already submitted their write-ups. 😭
 
 ### Full solution code
 
