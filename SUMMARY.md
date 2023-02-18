@@ -2,6 +2,8 @@
 
 * [Introduction](README.md)
 * [2022](2022/README.md)
+  * [Root-Me 10K CTF](2022/rootme10k/README.md)
+    * [chef's kiss](2022/rootme10k/chefskiss.md)
   * [FCSC 2022](2022/fcsc_2022/README.md)
     * [httpd (pwn)](2022/fcsc_2022/httpd/README.md)
     * [Hyper Packer (reverse)](2022/fcsc_2022/hyper-packer/README.md)
