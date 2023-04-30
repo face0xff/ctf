@@ -17,10 +17,10 @@ The reverse engineering part of the challenge was definitely the easiest part. T
 
 At first glance of the code, here are the main takeaways:
 
-* The input is a 24-character string with lower case letters from the alphabet (minus `o` and `i`) that encode $(x, y)$ couples, with $x \in \{0, \ldots, 5\}$ and $y \in \{0, \ldots, 3\}$.
+* The input is a 24-character string with lower case letters from the alphabet (minus `o` and `i`) that encode $$(x, y)$$ couples, with $$x \in \{0, \ldots, 5\}$$ and $$y \in \{0, \ldots, 3\}$$.
 * There are two central parts in the verification algorithm, that should be solved in reverse order. 
 
-In the first part, each $(x, y)$ couple acts on a certain array of 54 elements, which I call `initial_state`.
+In the first part, each $$(x, y)$$ couple acts on a certain array of 54 elements, which I call `initial_state`.
 
 ```cpp
 k = 0;
@@ -49,9 +49,9 @@ while ( strlen(s) > k )
 }
 ```
 
-More precisely, for each "move", the $x$ value selects a permutation (the array `permutations` consists of 6 distinct permutations of $\{ 0, \ldots, 53\}$). The $y$ value is the number of times this permutation should be applied on the state.
+More precisely, for each "move", the $x$ value selects a permutation (the array `permutations` consists of 6 distinct permutations of $$\{ 0, \ldots, 53\}$$). The $$y$$ value is the number of times this permutation should be applied on the state.
 
-The states are arrays of values in $\{ 0, \ldots, 15 \}$, therefore I chose to represent them using hexadecimal nibbles. The initial state looks like this:
+The states are arrays of values in $$\{ 0, \ldots, 15 \}$$, therefore I chose to represent them using hexadecimal nibbles. The initial state looks like this:
 
 ```
 D32EF97ED632728E7443D4C3F2A5916AB25CEBD1A1591F6E44B4BF
@@ -107,7 +107,7 @@ This time around, we have another quantity, `0x3DA8E0915F2C4B67`, which I called
 
 ## Solving the second puzzle
 
-When I first opened the binary in IDA, the second puzzle was definitely the quickest one to catch my attention. Going from a permutation of $\{0, \ldots, 15\}$ to $\text{0x123456789ABCDEF0}$ was something I knew very well: the *fifteen puzzle*.
+When I first opened the binary in IDA, the second puzzle was definitely the quickest one to catch my attention. Going from a permutation of $$\{0, \ldots, 15\}$$ to $$\text{0x123456789ABCDEF0}$$ was something I knew very well: the *fifteen puzzle*.
 
 ![](1.png)
 
@@ -117,7 +117,7 @@ In this challenge, the fifteen puzzle is encoded in a form that is a bit easier 
 
 The 54-nibble long array that is output from the first puzzle encodes the different moves to play on the grid. There are only two valid moves for each grid state: for instance, in the image above, the valid moves are 13 and 7.
 
-For this reason, the program keeps track of a $5 \times 16$ matrix of bitmasks, which I called `valid_moves`, that looks like the following in hexadecimal:
+For this reason, the program keeps track of a $$5 \times 16$$ matrix of bitmasks, which I called `valid_moves`, that looks like the following in hexadecimal:
 
 ```python
 [['0100000000000000', '0000100000000000', '0000000000000000', '0000000000000000', '0000000000000000'],
@@ -167,7 +167,7 @@ The selected row of bitmasks is:
  ['1000000000000000', '0010000000000000', '0000010000000000', '0000000000000000', '0000000000000000']
 ```
 
-Each bitmask can be seen as a $4 \times 4$ matrix:
+Each bitmask can be seen as a $$4 \times 4$$ matrix:
 
 ```
 1000  0010  0000  0000  0000
@@ -223,7 +223,7 @@ The set of permutations is the following:
 ]
 ```
 
-I thought the permutations looked a bit specific. There are a lot of fixed points, and the only non-trivial cycles are of length 4, which is an interesting property ($\forall P$, $P^4 = P$).
+I thought the permutations looked a bit specific. There are a lot of fixed points, and the only non-trivial cycles are of length 4, which is an interesting property ($$\forall P$$, $$P^4 = P$$).
 
 Unfortunately, at this moment, I didn't investigate the permutations much further. I spent countless hours trying to solve the problem as a generic "go from A to B using a set of permutations" problem. I mostly experimented with the [IDA* algorithm](https://en.wikipedia.org/wiki/Iterative_deepening_A*), but coming up with a decent heuristic proved to be difficult. Several times I found a sequence of moves that got me quite close to the target, but little did I know that I was actually very far.
 
@@ -244,7 +244,7 @@ Then, I wrote down the six permutations, replacing the fixed points with spaces:
 XUR                 0  1  2p  q  r  cfib hadg      QNK
 ```
 
-Still a bit cryptic, but we can see interesting patterns that makes us want to visualize the permutations in two dimensions. Since length is 54, we could rearrange them into $9 \times 6$ grids. Let's take the three first permutations for example.
+Still a bit cryptic, but we can see interesting patterns that makes us want to visualize the permutations in two dimensions. Since length is 54, we could rearrange them into $$9 \times 6$$ grids. Let's take the three first permutations for example.
 
 ```
 ---------
@@ -269,7 +269,7 @@ IJK
 ---------
 ```
 
-Starts looking better... but not quite there. It looks like there are still some kinds of column patterns appearing. Let's split each row into a $3 \times 3$ block. Here's for the first permutation, where I replaced fixed points with underscores for clarity:
+Starts looking better... but not quite there. It looks like there are still some kinds of column patterns appearing. Let's split each row into a $$3 \times 3$$ block. Here's for the first permutation, where I replaced fixed points with underscores for clarity:
 
 ```
 9__
@@ -297,7 +297,7 @@ f__
 c__
 ```
 
-Does it ring a bell now? Yup: it's a [Rubik's cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube_group). 6 faces, each face has $3 \times 3$ facets. Each permutation rotates one face (here, counter-clockwise). The repetition of a permutation 1 to 3 times is how many times you want to rotate a face. In the above permutation, we can effectively see that the rotation applies to the fourth face, that there are 4 other faces which are impacted by the rotation, and that there is an opposite face which is not impacted at all.
+Does it ring a bell now? Yup: it's a [Rubik's cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube_group). 6 faces, each face has $$3 \times 3$$ facets. Each permutation rotates one face (here, counter-clockwise). The repetition of a permutation 1 to 3 times is how many times you want to rotate a face. In the above permutation, we can effectively see that the rotation applies to the fourth face, that there are 4 other faces which are impacted by the rotation, and that there is an opposite face which is not impacted at all.
 
 Actually, it is even easier to visualize the Rubik's cube simply by applying the different permutations to the initial state. If we look at the action of the first permutation:
 
