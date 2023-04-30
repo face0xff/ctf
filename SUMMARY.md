@@ -1,6 +1,10 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [2023](2023/README.md)
+  * [FCSC 2023](2023/fcsc-2023/README.md)
+    * [Hola Amigo (reverse)](2023/fcsc-2023/hola-amigo/README.md)
+    * [Picasso (reverse)](2023/fcsc-2023/picasso/README.md)
 * [2022](2022/README.md)
   * [FCSC 2022](2022/fcsc_2022/README.md)
     * [httpd (pwn)](2022/fcsc_2022/httpd/README.md)
