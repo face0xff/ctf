@@ -308,7 +308,7 @@ According to [Wikipedia](https://en.wikipedia.org/wiki/NIST_SP_800-90A), **NIST 
 
 The latter is referenced in the magic string: we can assume the program makes use at some point of the **CTR DRBG** algorithm using the AES-256 block cipher primitive.
 
-With a bit more reversing, we find that the function `FUN_00006aac` is responsible for decrypting the strings in memory. It is called with the offset of the string to decrypt and a 8-bit key $k$. It uses AES-CTR with an initial zero counter and a key consisting of all bytes $k \oplus \text{0xAA}$. This knowledge is not essential to solve the challenge.
+With a bit more reversing, we find that the function `FUN_00006aac` is responsible for decrypting the strings in memory. It is called with the offset of the string to decrypt and a 8-bit key $$k$$. It uses AES-CTR with an initial zero counter and a key consisting of all bytes $$k \oplus \text{0xAA}$$. This knowledge is not essential to solve the challenge.
 
 Back to the missing blocks: the random number generation. The idea now is to correlate what we see in the binary with an existing library, because there's so much code (and so much *useless* code) that it seems unlikely it was implemented for this challenge only.
 
@@ -405,17 +405,17 @@ At first, I thought I could simply get the timestamp from the `flag.txt` file an
 
 Unfortunately, this does not work: this timestamp is not correct. This was hinted at in the challenge's description, which warned us that we shouldn't take the encrypted floppy disk's metadata for granted, as they were most likely overwritten.
 
-Consequently, we need to brute-force the $2^{16}$ possible AES keys, and thus reimplement the whole key generation algorithm. Thanksfully, we can reuse the libdrbg library.
+Consequently, we need to brute-force the $$2^{16}$$ possible AES keys, and thus reimplement the whole key generation algorithm. Thanksfully, we can reuse the libdrbg library.
 
 After spending quite some time assimilating the library and debugging my implementation, which seemed to correspond very closely to the executable's after performing various dynamic checks, I still couldn't find the correct key and I realized that something was wrong.
 
 My mistake was to patch the executable so that it always returns the same timestamp in order to make the calculations deterministic and ease the debugging process. But I totally neglected a crucial detail : there are **three distinct calls** to `CurrentTime()`, and these may return **different timestamps**.
 
-Indeed, the random number generation function is quite computationally heavy for the Amiga 500. With the FS-UAE emulator, I measured a delay of 8 seconds between the first two calls, and 4 seconds between the last two. We need to take into account these delays $\delta_1, \delta_2$ in our brute-force.
+Indeed, the random number generation function is quite computationally heavy for the Amiga 500. With the FS-UAE emulator, I measured a delay of 8 seconds between the first two calls, and 4 seconds between the last two. We need to take into account these delays $$\delta_1, \delta_2$$ in our brute-force.
 
 Additionally, since the timestamp is byte-swapped, the `k >> 0x10` quantity in `get_entropy_input` represents seconds of lower significance, which means that the three timestamps are really distinct for small delays.
 
-Even with this new realization, it took me a lot of time to find the correct $(\delta_1, \delta_2)$ pair --- it came down to basically guessing how slow the author's emulator was when they encrypted the flag. Bruteforcing the timestamp was already not instantaneous, so expanding the search space for the delays came with a certain computational cost.
+Even with this new realization, it took me a lot of time to find the correct $$(\delta_1, \delta_2)$$ pair --- it came down to basically guessing how slow the author's emulator was when they encrypted the flag. Bruteforcing the timestamp was already not instantaneous, so expanding the search space for the delays came with a certain computational cost.
 
 Eventually, I found the correct delays (18 seconds and 6 seconds) along with the timestamp (0x06fc). Here is my brute-force solve script. Note: the libdrbg library happens to implement the SM3 hash function as well, which was a blessing.
 

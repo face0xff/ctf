@@ -49,7 +49,7 @@ while ( strlen(s) > k )
 }
 ```
 
-More precisely, for each "move", the $x$ value selects a permutation (the array `permutations` consists of 6 distinct permutations of $$\{ 0, \ldots, 53\}$$). The $$y$$ value is the number of times this permutation should be applied on the state.
+More precisely, for each "move", the $$x$$ value selects a permutation (the array `permutations` consists of 6 distinct permutations of $$\{ 0, \ldots, 53\}$$). The $$y$$ value is the number of times this permutation should be applied on the state.
 
 The states are arrays of values in $$\{ 0, \ldots, 15 \}$$, therefore I chose to represent them using hexadecimal nibbles. The initial state looks like this:
 
